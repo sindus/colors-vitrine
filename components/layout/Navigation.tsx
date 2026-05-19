@@ -35,7 +35,10 @@ export function Navigation({ address = "42 rue Mercière, Lyon" }: Props) {
       >
         <nav className="mx-auto max-w-[1440px] px-10">
           {/* Desktop nav (>800px) */}
-          <div className="hidden h-[74px] items-center [display:grid] [grid-template-columns:1fr_auto_1fr] [@media(max-width:800px)]:hidden">
+          <div
+            className="max-[800px]:hidden h-[74px] items-center grid"
+            style={{ gridTemplateColumns: "1fr auto 1fr" }}
+          >
             {/* Left */}
             <div>
               <Link
@@ -48,7 +51,7 @@ export function Navigation({ address = "42 rue Mercière, Lyon" }: Props) {
             {/* Center logo */}
             <Link
               href="/"
-              className="font-display text-[32px] font-semibold leading-none tracking-[-0.01em] text-forest"
+              className="font-display text-[32px] font-semibold leading-none text-forest"
               style={{ letterSpacing: "-0.01em" }}
             >
               colors
@@ -66,7 +69,7 @@ export function Navigation({ address = "42 rue Mercière, Lyon" }: Props) {
           </div>
 
           {/* Mobile nav (≤800px) */}
-          <div className="hidden h-[62px] items-center justify-between [@media(max-width:800px)]:flex">
+          <div className="min-[801px]:hidden h-[62px] flex items-center justify-between">
             <button
               onClick={() => setDrawerOpen(true)}
               aria-label="Menu"
