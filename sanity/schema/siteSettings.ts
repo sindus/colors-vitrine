@@ -22,6 +22,12 @@ export const siteSettingsSchema = defineType({
       title: "Compte Instagram (sans @)",
       type: "string",
     }),
+    defineField({
+      name: "mentionsLegales",
+      title: "Mentions légales",
+      type: "text",
+      rows: 20,
+    }),
   ],
   preview: {
     prepare() {

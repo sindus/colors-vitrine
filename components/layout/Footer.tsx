@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export function Footer() {
   return (
     <footer className="bg-cream-deep px-10 pb-8 pt-10">
@@ -5,12 +7,12 @@ export function Footer() {
         <p className="font-sans text-[12px] text-muted-strong">
           © 2026 colors — Tous droits réservés
         </p>
-        <a
-          href="#"
+        <Link
+          href="/mentions-legales"
           className="font-sans text-[12px] text-muted-strong underline hover:text-forest"
         >
           Mentions légales
-        </a>
+        </Link>
       </div>
     </footer>
   );

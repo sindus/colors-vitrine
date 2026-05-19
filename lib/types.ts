@@ -81,4 +81,5 @@ export type SiteSettings = {
   announcementMessages?: string[];
   address?: string;
   instagramHandle?: string;
+  mentionsLegales?: string;
 };

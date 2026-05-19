@@ -145,7 +145,7 @@ export async function getHomepage(): Promise<HomepageData | null> {
         instagram {
           overline,
           handle,
-          "images": images[].asset->url + "?w=600&q=80"
+          "images": images[].asset->url
         },
         newsletter {
           overline,
@@ -196,7 +196,8 @@ export async function getSiteSettings(): Promise<SiteSettings | null> {
       `*[_type == "siteSettings" && _id == "siteSettings"][0] {
         announcementMessages,
         address,
-        instagramHandle
+        instagramHandle,
+        mentionsLegales
       }`,
       {},
       NEXT_OPTS
