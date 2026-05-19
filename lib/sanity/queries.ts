@@ -12,8 +12,9 @@ const PRODUCT_FIELDS = `
   tagline,
   "colors": coalesce(colors, []),
   sizes,
-  "image": coalesce(mainImage.asset->url + "?w=1200&q=80", ""),
+  "image": coalesce(mediaItems[0].image.asset->url + "?w=1200&q=80", mainImage.asset->url + "?w=1200&q=80", ""),
   "images": coalesce(images[].asset->url, []),
+  "media": mediaItems[]{"imageUrl": image.asset->url + "?w=1200&q=80", "videoUrl": video.asset->url},
   description,
   "details": coalesce(details, [])
 `;
@@ -113,6 +114,7 @@ export async function getHomepage(): Promise<HomepageData | null> {
           titleLine3,
           paragraph,
           "imageUrl": image.asset->url + "?w=1600&q=90",
+          "videoUrl": video.asset->url,
           captionIndex,
           captionQuote,
           captionProducts
@@ -122,6 +124,7 @@ export async function getHomepage(): Promise<HomepageData | null> {
           titleEmphasis,
           paragraph,
           "imageUrl": image.asset->url + "?w=1600&q=90",
+          "videoUrl": video.asset->url,
           "products": products[]-> { ${PRODUCT_REF_FIELDS} }
         },
         nouveautes {
@@ -135,7 +138,8 @@ export async function getHomepage(): Promise<HomepageData | null> {
           titleEmphasis,
           paragraph1,
           paragraph2,
-          "imageUrl": image.asset->url + "?w=1600&q=90"
+          "imageUrl": image.asset->url + "?w=1600&q=90",
+          "videoUrl": video.asset->url
         },
         indemodables {
           overline,

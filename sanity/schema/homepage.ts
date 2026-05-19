@@ -18,6 +18,7 @@ export const homepageSchema = defineType({
         { name: "titleLine3", title: "Titre — ligne 3", type: "string" },
         { name: "paragraph", title: "Paragraphe", type: "text", rows: 3 },
         { name: "image", title: "Image (droite)", type: "image", options: { hotspot: true } },
+        { name: "video", title: "Vidéo (remplace l'image si définie)", type: "file", options: { accept: "video/*" } },
         { name: "captionIndex", title: "Légende — index (ex: Lookbook · 01 / 12)", type: "string" },
         { name: "captionQuote", title: "Légende — citation", type: "string" },
         { name: "captionProducts", title: "Légende — produits", type: "string" },
@@ -33,6 +34,7 @@ export const homepageSchema = defineType({
         { name: "titleEmphasis", title: "Titre — mot en italique", type: "string" },
         { name: "paragraph", title: "Paragraphe", type: "text", rows: 3 },
         { name: "image", title: "Image", type: "image", options: { hotspot: true } },
+        { name: "video", title: "Vidéo (remplace l'image si définie)", type: "file", options: { accept: "video/*" } },
         {
           name: "products",
           title: "Produits mis en avant (2 max)",
@@ -71,6 +73,7 @@ export const homepageSchema = defineType({
         { name: "paragraph1", title: "Paragraphe 1", type: "text", rows: 4 },
         { name: "paragraph2", title: "Paragraphe 2", type: "text", rows: 2 },
         { name: "image", title: "Image (gauche)", type: "image", options: { hotspot: true } },
+        { name: "video", title: "Vidéo (remplace l'image si définie)", type: "file", options: { accept: "video/*" } },
       ],
     }),
 

@@ -1,8 +1,8 @@
-import Image from "next/image";
+import { MediaView } from "@/components/ui/MediaView";
 import { Button } from "@/components/ui/Button";
 import type { EditorialData } from "@/lib/types";
 
-const DEFAULTS: Required<EditorialData> = {
+const DEFAULTS: Omit<Required<EditorialData>, "videoUrl"> = {
   overline: "— Notre signature —",
   titleBefore: "Des pièces qui",
   titleEmphasis: "vous ressemblent.",
@@ -19,11 +19,11 @@ export function EditorialSplit({ data }: Props) {
 
   return (
     <section className="grid grid-cols-1 lg:grid-cols-2" style={{ minHeight: 640 }}>
-      <div className="relative min-h-[50vw] bg-sand lg:min-h-0" style={{ backgroundColor: "#dfd3bd" }}>
-        <Image
-          src={d.imageUrl}
+      <div className="relative min-h-[50vw] lg:min-h-0" style={{ backgroundColor: "#dfd3bd" }}>
+        <MediaView
+          imageUrl={d.videoUrl ? null : d.imageUrl}
+          videoUrl={d.videoUrl}
           alt="Notre signature"
-          fill
           sizes="(max-width: 1024px) 100vw, 50vw"
           className="object-cover"
         />

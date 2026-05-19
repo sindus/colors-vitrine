@@ -1,3 +1,8 @@
+export type MediaItem = {
+  imageUrl?: string | null;
+  videoUrl?: string | null;
+};
+
 export type Product = {
   id: string;
   name: string;
@@ -10,6 +15,7 @@ export type Product = {
   images: string[];
   description: string;
   details: string[];
+  media?: MediaItem[];
 };
 
 export type HeroData = {
@@ -21,6 +27,7 @@ export type HeroData = {
   titleLine3?: string;
   paragraph?: string;
   imageUrl?: string;
+  videoUrl?: string | null;
   captionIndex?: string;
   captionQuote?: string;
   captionProducts?: string;
@@ -31,6 +38,7 @@ export type LookDuMomentData = {
   titleEmphasis?: string;
   paragraph?: string;
   imageUrl?: string;
+  videoUrl?: string | null;
   products?: Pick<Product, "id" | "name" | "price" | "image">[];
 };
 
@@ -47,6 +55,7 @@ export type EditorialData = {
   paragraph1?: string;
   paragraph2?: string;
   imageUrl?: string;
+  videoUrl?: string | null;
 };
 
 export type InstagramData = {

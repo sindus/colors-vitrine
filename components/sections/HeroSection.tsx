@@ -1,11 +1,11 @@
-import Image from "next/image";
+import { MediaView } from "@/components/ui/MediaView";
 import { Button } from "@/components/ui/Button";
 import type { HeroData } from "@/lib/types";
 
-const DEFAULTS: Required<HeroData> = {
+const DEFAULTS: Omit<Required<HeroData>, "videoUrl"> = {
   overline: "— Collection Printemps 2026",
   titleLine1: "Les couleurs",
-  titleLine2Before: "de l’",
+  titleLine2Before: "de l'",
   titleEmphasis: "été",
   titleLine2After: " sont",
   titleLine3: "de retour.",
@@ -14,7 +14,7 @@ const DEFAULTS: Required<HeroData> = {
   imageUrl:
     "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1600&q=90",
   captionIndex: "Lookbook · 01 / 12",
-  captionQuote: "« L’été indien »",
+  captionQuote: "« L'été indien »",
   captionProducts: "Robe Mireille · Foulard Anouk",
 };
 
@@ -59,12 +59,12 @@ export function HeroSection({ data }: Props) {
         </div>
       </div>
 
-      {/* Right: image */}
+      {/* Right: image or video */}
       <div className="relative min-h-[60vw] lg:min-h-0">
-        <Image
-          src={d.imageUrl}
+        <MediaView
+          imageUrl={d.videoUrl ? null : d.imageUrl}
+          videoUrl={d.videoUrl}
           alt="Collection"
-          fill
           sizes="(max-width: 1024px) 100vw, 50vw"
           className="object-cover"
           priority

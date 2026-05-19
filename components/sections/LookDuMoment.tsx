@@ -1,13 +1,14 @@
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
+import { MediaView } from "@/components/ui/MediaView";
 import { PRODUCTS } from "@/lib/data";
 import type { LookDuMomentData } from "@/lib/types";
 
-const DEFAULTS: Required<LookDuMomentData> = {
-  titleBefore: "« L’été",
+const DEFAULTS: Omit<Required<LookDuMomentData>, "videoUrl"> = {
+  titleBefore: "« L'été",
   titleEmphasis: "indien",
   paragraph:
-    "La Robe Mireille portée avec le Foulard Anouk dans les cheveux — la lumière de fin d’après-midi fait le reste.",
+    "La Robe Mireille portée avec le Foulard Anouk dans les cheveux — la lumière de fin d'après-midi fait le reste.",
   imageUrl: "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=1600&q=90",
   products: [],
 };
@@ -28,12 +29,12 @@ export function LookDuMoment({ data }: Props) {
   return (
     <section className="mx-auto w-full max-w-[1440px] px-[22px] py-[80px] lg:px-10 lg:py-[120px]">
       <div className="contents lg:grid lg:items-center lg:gap-16" style={{ gridTemplateColumns: "7fr 5fr" }}>
-        {/* Image */}
+        {/* Image or video */}
         <div className="relative mb-8 overflow-hidden bg-sand lg:mb-0" style={{ aspectRatio: "5/6" }}>
-          <Image
-            src={d.imageUrl}
+          <MediaView
+            imageUrl={d.videoUrl ? null : d.imageUrl}
+            videoUrl={d.videoUrl}
             alt="Look du moment"
-            fill
             sizes="(max-width: 1024px) 100vw, 58vw"
             className="object-cover"
           />

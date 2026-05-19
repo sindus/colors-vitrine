@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
+import { MediaView } from "@/components/ui/MediaView";
 import { ProductCard } from "@/components/ui/ProductCard";
-import type { Product } from "@/lib/types";
+import type { Product, MediaItem } from "@/lib/types";
 
 type AccordionItem = {
   label: string;
@@ -22,7 +22,12 @@ export function ProductDetail({
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [openAccordion, setOpenAccordion] = useState<number>(0);
 
-  const allImages = product.images.length > 0 ? product.images : [product.image];
+  const gallery: MediaItem[] =
+    product.media && product.media.length > 0
+      ? product.media
+      : product.images.length > 0
+        ? product.images.map((url) => ({ imageUrl: url }))
+        : [{ imageUrl: product.image || null }];
 
   const accordionItems: AccordionItem[] = [
     { label: "Description", content: product.description },
@@ -65,7 +70,7 @@ export function ProductDetail({
         <div className="hidden lg:grid" style={{ gridTemplateColumns: "80px 1fr 480px", gap: 40 }}>
           {/* Col 1: Thumbnails */}
           <div className="flex flex-col gap-3" style={{ position: "sticky", top: 110, alignSelf: "start" }}>
-            {allImages.map((src, i) => (
+            {gallery.map((item, i) => (
               <button
                 key={i}
                 onClick={() => setActiveImage(i)}
@@ -76,12 +81,12 @@ export function ProductDetail({
                   opacity: i === activeImage ? 1 : 0.65,
                   border: i === activeImage ? "1px solid #1d5236" : "1px solid transparent",
                 }}
-                aria-label={`Image ${i + 1}`}
+                aria-label={`Média ${i + 1}`}
               >
-                <Image
-                  src={src}
+                <MediaView
+                  imageUrl={item.imageUrl}
+                  videoUrl={item.videoUrl}
                   alt={`${product.name} - vue ${i + 1}`}
-                  fill
                   sizes="80px"
                   className="object-cover"
                 />
@@ -89,12 +94,12 @@ export function ProductDetail({
             ))}
           </div>
 
-          {/* Col 2: Main image */}
+          {/* Col 2: Main media */}
           <div className="relative overflow-hidden bg-sand" style={{ aspectRatio: "3/4" }}>
-            <Image
-              src={allImages[activeImage]}
+            <MediaView
+              imageUrl={gallery[activeImage]?.imageUrl}
+              videoUrl={gallery[activeImage]?.videoUrl}
               alt={product.name}
-              fill
               sizes="(max-width: 1440px) 50vw"
               className="object-cover"
               priority
@@ -117,18 +122,18 @@ export function ProductDetail({
         {/* Mobile layout */}
         <div className="lg:hidden">
           <div className="relative overflow-hidden bg-sand" style={{ aspectRatio: "3/4" }}>
-            <Image
-              src={allImages[activeImage]}
+            <MediaView
+              imageUrl={gallery[activeImage]?.imageUrl}
+              videoUrl={gallery[activeImage]?.videoUrl}
               alt={product.name}
-              fill
               sizes="100vw"
               className="object-cover"
               priority
             />
           </div>
-          {allImages.length > 1 && (
+          {gallery.length > 1 && (
             <div className="mt-3 flex gap-2">
-              {allImages.map((src, i) => (
+              {gallery.map((item, i) => (
                 <button
                   key={i}
                   onClick={() => setActiveImage(i)}
@@ -139,9 +144,15 @@ export function ProductDetail({
                     border: i === activeImage ? "1px solid #1d5236" : "1px solid transparent",
                     opacity: i === activeImage ? 1 : 0.65,
                   }}
-                  aria-label={`Image ${i + 1}`}
+                  aria-label={`Média ${i + 1}`}
                 >
-                  <Image src={src} alt={`${product.name} - vue ${i + 1}`} fill sizes="56px" className="object-cover" />
+                  <MediaView
+                    imageUrl={item.imageUrl}
+                    videoUrl={item.videoUrl}
+                    alt={`${product.name} - vue ${i + 1}`}
+                    sizes="56px"
+                    className="object-cover"
+                  />
                 </button>
               ))}
             </div>
