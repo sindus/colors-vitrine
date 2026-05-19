@@ -2,6 +2,8 @@ import { sanityClient } from "./client";
 import type { Product, HomepageData, SiteSettings } from "../types";
 import { PRODUCTS, INSTAGRAM_IMAGES } from "../data";
 
+const NEXT_OPTS = { next: { tags: ["sanity"], revalidate: 60 } };
+
 const PRODUCT_FIELDS = `
   "id": slug.current,
   name,
@@ -33,7 +35,9 @@ export async function getAllProducts(): Promise<Product[]> {
   if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) return PRODUCTS;
   try {
     const results = await sanityClient.fetch(
-      `*[_type == "product"] | order(_createdAt asc) { ${PRODUCT_FIELDS} }`
+      `*[_type == "product"] | order(_createdAt asc) { ${PRODUCT_FIELDS} }`,
+      {},
+      NEXT_OPTS
     );
     return mergeWithStatic(results);
   } catch {
@@ -48,7 +52,8 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
   try {
     const result = await sanityClient.fetch(
       `*[_type == "product" && slug.current == $slug][0] { ${PRODUCT_FIELDS} }`,
-      { slug }
+      { slug },
+      NEXT_OPTS
     );
     if (!result) return PRODUCTS.find((p) => p.id === slug) ?? null;
     return mergeWithStatic([result])[0];
@@ -69,7 +74,8 @@ export async function getRelatedProducts(
   try {
     const results = await sanityClient.fetch(
       `*[_type == "product" && category == $category && slug.current != $excludeSlug][0...4] { ${PRODUCT_FIELDS} }`,
-      { category, excludeSlug }
+      { category, excludeSlug },
+      NEXT_OPTS
     );
     return mergeWithStatic(results);
   } catch {
@@ -96,8 +102,8 @@ export async function getHomepage(): Promise<HomepageData | null> {
       "details": coalesce(details, [])
     `;
 
-    const data = await sanityClient.fetch(`
-      *[_type == "homepage" && _id == "homepage"][0] {
+    const data = await sanityClient.fetch(
+      `*[_type == "homepage" && _id == "homepage"][0] {
         hero {
           overline,
           titleLine1,
@@ -146,12 +152,13 @@ export async function getHomepage(): Promise<HomepageData | null> {
           title,
           paragraph
         }
-      }
-    `);
+      }`,
+      {},
+      NEXT_OPTS
+    );
 
     if (!data) return null;
 
-    // Merge Sanity products with static data for images
     if (data.lookDuMoment?.products) {
       data.lookDuMoment.products = mergeWithStatic(data.lookDuMoment.products);
     }
@@ -176,7 +183,9 @@ export async function getSiteSettings(): Promise<SiteSettings | null> {
         announcementMessages,
         address,
         instagramHandle
-      }`
+      }`,
+      {},
+      NEXT_OPTS
     );
   } catch {
     return null;
