@@ -1,5 +1,5 @@
 import { sanityClient } from "./client";
-import type { Product, HomepageData, SiteSettings } from "../types";
+import type { Product, HomepageData, LookbookData, SiteSettings } from "../types";
 import { PRODUCTS, INSTAGRAM_IMAGES } from "../data";
 
 const NEXT_OPTS = { next: { tags: ["sanity"], revalidate: 60 } };
@@ -170,6 +170,20 @@ export async function getHomepage(): Promise<HomepageData | null> {
     }
 
     return data as HomepageData;
+  } catch {
+    return null;
+  }
+}
+
+export async function getLookbook(): Promise<LookbookData | null> {
+  if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) return null;
+  try {
+    const data = await sanityClient.fetch(
+      `*[_type == "homepage" && _id == "homepage"][0] { lookbook }`,
+      {},
+      NEXT_OPTS
+    );
+    return data?.lookbook ?? null;
   } catch {
     return null;
   }

@@ -71,6 +71,12 @@ export type HomepageData = {
   newsletter?: NewsletterData;
 };
 
+export type LookbookData = {
+  tagline?: string;
+  paragraph?: string;
+  season?: string;
+};
+
 export type SiteSettings = {
   announcementMessages?: string[];
   address?: string;

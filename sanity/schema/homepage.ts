@@ -109,6 +109,17 @@ export const homepageSchema = defineType({
     }),
 
     defineField({
+      name: "lookbook",
+      title: "Page Lookbook",
+      type: "object",
+      fields: [
+        { name: "tagline", title: "Phrase italique (sous le titre)", type: "string" },
+        { name: "paragraph", title: "Paragraphe de description", type: "text", rows: 3 },
+        { name: "season", title: "Saison (ex: Printemps · Été 2026)", type: "string" },
+      ],
+    }),
+
+    defineField({
       name: "newsletter",
       title: "Newsletter",
       type: "object",
