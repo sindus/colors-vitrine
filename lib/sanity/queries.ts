@@ -39,6 +39,7 @@ export async function getAllProducts(): Promise<Product[]> {
       {},
       NEXT_OPTS
     );
+    if (!results || results.length === 0) return PRODUCTS;
     return mergeWithStatic(results);
   } catch {
     return PRODUCTS;
