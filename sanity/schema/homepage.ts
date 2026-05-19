@@ -119,4 +119,9 @@ export const homepageSchema = defineType({
       ],
     }),
   ],
+  preview: {
+    prepare() {
+      return { title: "Page d'accueil" };
+    },
+  },
 });

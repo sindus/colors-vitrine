@@ -23,4 +23,9 @@ export const siteSettingsSchema = defineType({
       type: "string",
     }),
   ],
+  preview: {
+    prepare() {
+      return { title: "Paramètres du site" };
+    },
+  },
 });
