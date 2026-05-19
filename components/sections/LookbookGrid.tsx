@@ -131,7 +131,7 @@ export function LookbookGrid({ products, lookbook }: Props) {
               gridAutoFlow: "dense",
             }}
           >
-            {sorted.slice(0, 12).map((product, i) => {
+            {sorted.map((product, i) => {
               const [colSpan, rowSpan] = MOSAIC_PATTERN[i] ?? [1, 1];
               return (
                 <div
