@@ -34,6 +34,7 @@ export type HeroData = {
 };
 
 export type LookDuMomentData = {
+  overline?: string;
   titleBefore?: string;
   titleEmphasis?: string;
   paragraph?: string;

@@ -30,6 +30,7 @@ export const homepageSchema = defineType({
       title: "Look du moment",
       type: "object",
       fields: [
+        { name: "overline", title: "Surtitre (ex: — Le look du moment —)", type: "string" },
         { name: "titleBefore", title: "Titre (avant italique)", type: "string" },
         { name: "titleEmphasis", title: "Titre — mot en italique", type: "string" },
         { name: "paragraph", title: "Paragraphe", type: "text", rows: 3 },

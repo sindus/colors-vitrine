@@ -115,6 +115,7 @@ export async function getHomepage(): Promise<HomepageData | null> {
           captionProducts
         },
         lookDuMoment {
+          overline,
           titleBefore,
           titleEmphasis,
           paragraph,

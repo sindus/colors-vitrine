@@ -5,6 +5,7 @@ import { PRODUCTS } from "@/lib/data";
 import type { LookDuMomentData } from "@/lib/types";
 
 const DEFAULTS: Omit<Required<LookDuMomentData>, "videoUrl"> = {
+  overline: "— Le look du moment —",
   titleBefore: "« L'été",
   titleEmphasis: "indien",
   paragraph:
@@ -43,7 +44,7 @@ export function LookDuMoment({ data }: Props) {
         {/* Text */}
         <div>
           <p className="font-sans text-[11px] font-medium uppercase tracking-[0.24em] text-ochre-deep">
-            — Le look du moment —
+            {d.overline}
           </p>
           <h2
             className="mt-4 font-display font-normal text-forest"
