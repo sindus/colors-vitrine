@@ -4,7 +4,9 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { SearchOverlay } from "./SearchOverlay";
 
-export function Navigation() {
+type Props = { address?: string };
+
+export function Navigation({ address = "42 rue Mercière, Lyon" }: Props) {
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -135,7 +137,7 @@ export function Navigation() {
             {/* Drawer footer */}
             <div className="mt-auto px-6 pb-8">
               <p className="font-sans text-[12px] uppercase tracking-[0.16em] text-muted">
-                42 rue Mercière, Lyon
+                {address}
               </p>
             </div>
           </div>
