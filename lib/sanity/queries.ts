@@ -1,8 +1,6 @@
 import { sanityClient } from "./client";
 import type { Product, HomepageData, LookbookData, SiteSettings } from "../types";
-import { PRODUCTS, INSTAGRAM_IMAGES } from "../data";
-
-const NEXT_OPTS = { next: { tags: ["sanity"], revalidate: 60 } };
+import { PRODUCTS } from "../data";
 
 const PRODUCT_FIELDS = `
   "id": slug.current,
@@ -12,9 +10,9 @@ const PRODUCT_FIELDS = `
   tagline,
   "colors": coalesce(colors, []),
   sizes,
-  "image": coalesce(mediaItems[0].image.asset->url + "?w=1200&q=80", mainImage.asset->url + "?w=1200&q=80", ""),
+  "image": coalesce(mediaItems[0].image.asset->url, mainImage.asset->url, ""),
   "images": coalesce(images[].asset->url, []),
-  "media": mediaItems[]{"imageUrl": image.asset->url + "?w=1200&q=80", "videoUrl": video.asset->url},
+  "media": mediaItems[]{"imageUrl": image.asset->url, "videoUrl": video.asset->url},
   description,
   "details": coalesce(details, [])
 `;
@@ -36,9 +34,7 @@ export async function getAllProducts(): Promise<Product[]> {
   if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) return PRODUCTS;
   try {
     const results = await sanityClient.fetch(
-      `*[_type == "product"] | order(_createdAt asc) { ${PRODUCT_FIELDS} }`,
-      {},
-      NEXT_OPTS
+      `*[_type == "product"] | order(_createdAt asc) { ${PRODUCT_FIELDS} }`
     );
     return mergeWithStatic(results);
   } catch {
@@ -53,8 +49,7 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
   try {
     const result = await sanityClient.fetch(
       `*[_type == "product" && slug.current == $slug][0] { ${PRODUCT_FIELDS} }`,
-      { slug },
-      NEXT_OPTS
+      { slug }
     );
     if (!result) return PRODUCTS.find((p) => p.id === slug) ?? null;
     return mergeWithStatic([result])[0];
@@ -75,8 +70,7 @@ export async function getRelatedProducts(
   try {
     const results = await sanityClient.fetch(
       `*[_type == "product" && category == $category && slug.current != $excludeSlug][0...4] { ${PRODUCT_FIELDS} }`,
-      { category, excludeSlug },
-      NEXT_OPTS
+      { category, excludeSlug }
     );
     return mergeWithStatic(results);
   } catch {
@@ -97,8 +91,9 @@ export async function getHomepage(): Promise<HomepageData | null> {
       tagline,
       "colors": coalesce(colors, []),
       sizes,
-      "image": coalesce(mainImage.asset->url + "?w=1200&q=80", ""),
+      "image": coalesce(mediaItems[0].image.asset->url, mainImage.asset->url, ""),
       "images": coalesce(images[].asset->url, []),
+      "media": mediaItems[]{"imageUrl": image.asset->url, "videoUrl": video.asset->url},
       description,
       "details": coalesce(details, [])
     `;
@@ -113,7 +108,7 @@ export async function getHomepage(): Promise<HomepageData | null> {
           titleLine2After,
           titleLine3,
           paragraph,
-          "imageUrl": image.asset->url + "?w=1600&q=90",
+          "imageUrl": image.asset->url,
           "videoUrl": video.asset->url,
           captionIndex,
           captionQuote,
@@ -123,7 +118,7 @@ export async function getHomepage(): Promise<HomepageData | null> {
           titleBefore,
           titleEmphasis,
           paragraph,
-          "imageUrl": image.asset->url + "?w=1600&q=90",
+          "imageUrl": image.asset->url,
           "videoUrl": video.asset->url,
           "products": products[]-> { ${PRODUCT_REF_FIELDS} }
         },
@@ -138,7 +133,7 @@ export async function getHomepage(): Promise<HomepageData | null> {
           titleEmphasis,
           paragraph1,
           paragraph2,
-          "imageUrl": image.asset->url + "?w=1600&q=90",
+          "imageUrl": image.asset->url,
           "videoUrl": video.asset->url
         },
         indemodables {
@@ -151,14 +146,17 @@ export async function getHomepage(): Promise<HomepageData | null> {
           handle,
           "images": images[]{"imageUrl": image.asset->url, "postUrl": url}
         },
+        lookbook {
+          tagline,
+          paragraph,
+          season
+        },
         newsletter {
           overline,
           title,
           paragraph
         }
-      }`,
-      {},
-      NEXT_OPTS
+      }`
     );
 
     if (!data) return null;
@@ -183,9 +181,7 @@ export async function getLookbook(): Promise<LookbookData | null> {
   if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) return null;
   try {
     const data = await sanityClient.fetch(
-      `*[_type == "homepage" && _id == "homepage"][0] { lookbook }`,
-      {},
-      NEXT_OPTS
+      `*[_type == "homepage" && _id == "homepage"][0] { lookbook }`
     );
     return data?.lookbook ?? null;
   } catch {
@@ -202,9 +198,7 @@ export async function getSiteSettings(): Promise<SiteSettings | null> {
         address,
         instagramHandle,
         mentionsLegales
-      }`,
-      {},
-      NEXT_OPTS
+      }`
     );
   } catch {
     return null;

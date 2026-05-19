@@ -1,3 +1,5 @@
+export const revalidate = 60;
+
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";

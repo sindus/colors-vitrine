@@ -1,3 +1,5 @@
+export const revalidate = 60;
+
 import { notFound } from "next/navigation";
 import { getProductBySlug, getRelatedProducts } from "@/lib/sanity/queries";
 import { ProductDetail } from "@/components/sections/ProductDetail";

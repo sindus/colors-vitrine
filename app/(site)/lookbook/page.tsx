@@ -1,3 +1,5 @@
+export const revalidate = 60;
+
 import { getAllProducts, getLookbook } from "@/lib/sanity/queries";
 import { LookbookGrid } from "@/components/sections/LookbookGrid";
 
