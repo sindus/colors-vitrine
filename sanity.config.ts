@@ -7,6 +7,7 @@ export default defineConfig({
   title: "colors — Studio",
   projectId: "va4xjtry",
   dataset: "production",
+  basePath: "/studio",
   plugins: [structureTool()],
   schema: {
     types: [productSchema],
