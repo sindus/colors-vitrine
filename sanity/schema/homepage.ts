@@ -105,7 +105,23 @@ export const homepageSchema = defineType({
           name: "images",
           title: "Photos (6 max)",
           type: "array",
-          of: [{ type: "image", options: { hotspot: true } }],
+          of: [
+            {
+              type: "object",
+              name: "instagramPost",
+              title: "Post Instagram",
+              fields: [
+                { name: "image", title: "Photo", type: "image", options: { hotspot: true } },
+                { name: "url", title: "URL du post Instagram", type: "url" },
+              ],
+              preview: {
+                select: { title: "url" },
+                prepare(value: Record<string, unknown>) {
+                  return { title: (value.title as string) || "Post sans URL" };
+                },
+              },
+            },
+          ],
           validation: (Rule) => Rule.max(6),
         },
       ],

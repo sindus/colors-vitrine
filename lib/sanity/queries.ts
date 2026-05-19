@@ -149,7 +149,7 @@ export async function getHomepage(): Promise<HomepageData | null> {
         instagram {
           overline,
           handle,
-          "images": images[].asset->url
+          "images": images[]{"imageUrl": image.asset->url, "postUrl": url}
         },
         newsletter {
           overline,

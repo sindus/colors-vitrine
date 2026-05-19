@@ -7,21 +7,32 @@ type Props = { data?: InstagramData };
 export function InstagramWall({ data }: Props) {
   const overline = data?.overline ?? "— Suivez-nous —";
   const handle = data?.handle ?? "colors.boutique";
-  const images = data?.images?.length ? data.images : INSTAGRAM_IMAGES;
+  const profileUrl = `https://instagram.com/${handle.replace("@", "")}`;
+
+  const posts =
+    data?.images?.length
+      ? data.images
+      : INSTAGRAM_IMAGES.map((url) => ({ imageUrl: url, postUrl: null }));
 
   return (
     <section className="mx-auto w-full max-w-[1440px] px-[22px] pb-[100px] pt-[80px] lg:px-10">
       <div className="mb-8 text-center">
         <p className="font-sans text-[11px] font-medium uppercase tracking-[0.24em] text-ochre-deep">{overline}</p>
-        <h2 className="mt-2 font-display italic font-normal text-forest" style={{ fontSize: "clamp(32px, 3vw, 48px)" }}>
-          @{handle}
-        </h2>
+        <a
+          href={profileUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-2 inline-block font-display italic font-normal text-forest hover:opacity-75 transition-opacity"
+          style={{ fontSize: "clamp(32px, 3vw, 48px)" }}
+        >
+          @{handle.replace("@", "")}
+        </a>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6" style={{ gap: 4 }}>
-        {images.map((src, i) => (
+        {posts.map((post, i) => (
           <a
             key={i}
-            href={`https://instagram.com/${handle}`}
+            href={post.postUrl || profileUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="group relative block overflow-hidden bg-sand"
@@ -29,7 +40,7 @@ export function InstagramWall({ data }: Props) {
             aria-label={`Photo Instagram ${i + 1}`}
           >
             <Image
-              src={src}
+              src={post.imageUrl}
               alt={`Instagram ${i + 1}`}
               fill
               sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw"

@@ -58,10 +58,15 @@ export type EditorialData = {
   videoUrl?: string | null;
 };
 
+export type InstagramPost = {
+  imageUrl: string;
+  postUrl?: string | null;
+};
+
 export type InstagramData = {
   overline?: string;
   handle?: string;
-  images?: string[];
+  images?: InstagramPost[];
 };
 
 export type NewsletterData = {
