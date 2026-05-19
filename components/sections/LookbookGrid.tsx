@@ -114,28 +114,36 @@ export function LookbookGrid({ products, lookbook }: Props) {
         </div>
 
         {/* Mosaic grid */}
-        <div
-          className="mb-[80px]"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gridAutoRows: "240px",
-            gap: "24px",
-            gridAutoFlow: "dense",
-          }}
-        >
-          {sorted.slice(0, 12).map((product, i) => {
-            const [colSpan, rowSpan] = MOSAIC_PATTERN[i] ?? [1, 1];
-            return (
-              <div
-                key={product.id}
-                className={`mosaic-cell-${colSpan}-${rowSpan}`}
-              >
-                <MosaicCard product={product} index={i} />
-              </div>
-            );
-          })}
-        </div>
+        {sorted.length === 0 ? (
+          <div className="mb-[80px] py-[80px] text-center">
+            <p className="font-display italic text-[22px] text-muted">
+              Aucune pièce pour le moment.
+            </p>
+          </div>
+        ) : (
+          <div
+            className="mb-[80px]"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(4, 1fr)",
+              gridAutoRows: "240px",
+              gap: "24px",
+              gridAutoFlow: "dense",
+            }}
+          >
+            {sorted.slice(0, 12).map((product, i) => {
+              const [colSpan, rowSpan] = MOSAIC_PATTERN[i] ?? [1, 1];
+              return (
+                <div
+                  key={product.id}
+                  className={`mosaic-cell-${colSpan}-${rowSpan}`}
+                >
+                  <MosaicCard product={product} index={i} />
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       <NewsletterStrip />
