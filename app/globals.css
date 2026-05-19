@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Colors */
+  --color-forest: #1d5236;
+  --color-forest-deep: #0f3a23;
+  --color-cream: #f3efe6;
+  --color-cream-deep: #ebe5d7;
+  --color-sand: #dfd3bd;
+  --color-sand-deep: #cdbfa3;
+  --color-ochre: #e3b76b;
+  --color-ochre-deep: #b8843a;
+  --color-muted: #8c8378;
+  --color-muted-strong: #5a544b;
+
+  /* Fonts */
+  --font-display: var(--font-cormorant);
+  --font-sans: var(--font-outfit);
+
+  /* Border radius — always 0 */
+  --radius: 0px;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-2xl: 0px;
+  --radius-full: 0px;
+}
+
+/* CSS custom properties */
+:root {
+  --forest: #1d5236;
+  --forest-deep: #0f3a23;
+  --cream: #f3efe6;
+  --cream-deep: #ebe5d7;
+  --sand: #dfd3bd;
+  --sand-deep: #cdbfa3;
+  --ochre: #e3b76b;
+  --ochre-deep: #b8843a;
+  --muted: #8c8378;
+  --muted-strong: #5a544b;
+}
+
+/* Global reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  border-radius: 0 !important;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #f3efe6;
+  color: #1d5236;
+  font-family: var(--font-outfit), system-ui, sans-serif;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: #e3b76b;
+  color: #1d5236;
+}
+
+/* Nav link underline animation */
+.nav-link {
+  position: relative;
+  display: inline-block;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: #1d5236;
+  transition: width 220ms ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Mosaic grid spans */
+.mosaic-cell-2-3 {
+  grid-column: span 2;
+  grid-row: span 3;
+}
+.mosaic-cell-1-2 {
+  grid-column: span 1;
+  grid-row: span 2;
+}
+.mosaic-cell-1-1 {
+  grid-column: span 1;
+  grid-row: span 1;
+}
+.mosaic-cell-2-2 {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+@media (max-width: 1024px) {
+  .mosaic-cell-2-3,
+  .mosaic-cell-1-2,
+  .mosaic-cell-1-1,
+  .mosaic-cell-2-2 {
+    grid-column: span 1 !important;
+    grid-row: span 1 !important;
+  }
+}
