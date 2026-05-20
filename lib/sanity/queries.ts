@@ -83,21 +83,6 @@ export async function getRelatedProducts(
 export async function getHomepage(): Promise<HomepageData | null> {
   if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) return null;
   try {
-    const PRODUCT_REF_FIELDS = `
-      "id": slug.current,
-      name,
-      category,
-      price,
-      tagline,
-      "colors": coalesce(colors, []),
-      sizes,
-      "image": coalesce(mediaItems[0].image.asset->url, mainImage.asset->url, ""),
-      "images": coalesce(images[].asset->url, []),
-      "media": mediaItems[]{"imageUrl": image.asset->url, "videoUrl": video.asset->url},
-      description,
-      "details": coalesce(details, [])
-    `;
-
     const data = await sanityClient.fetch(
       `*[_type == "homepage" && _id == "homepage"][0] {
         hero {
@@ -121,12 +106,12 @@ export async function getHomepage(): Promise<HomepageData | null> {
           paragraph,
           "imageUrl": image.asset->url,
           "videoUrl": video.asset->url,
-          "products": products[]-> { ${PRODUCT_REF_FIELDS} }
+          "products": products[]-> { ${PRODUCT_FIELDS} }
         },
         nouveautes {
           overline,
           title,
-          "products": products[]-> { ${PRODUCT_REF_FIELDS} }
+          "products": products[]-> { ${PRODUCT_FIELDS} }
         },
         editorial {
           overline,
@@ -140,7 +125,7 @@ export async function getHomepage(): Promise<HomepageData | null> {
         indemodables {
           overline,
           title,
-          "products": products[]-> { ${PRODUCT_REF_FIELDS} }
+          "products": products[]-> { ${PRODUCT_FIELDS} }
         },
         instagram {
           overline,

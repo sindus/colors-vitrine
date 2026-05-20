@@ -38,7 +38,13 @@ export const productSchema = defineType({
       name: "price",
       title: "Prix (€)",
       type: "number",
-      validation: (Rule) => Rule.required().positive(),
+      validation: (Rule) => Rule.positive(),
+    }),
+    defineField({
+      name: "colors",
+      title: "Couleurs disponibles",
+      type: "array",
+      of: [{ type: "string" }],
     }),
     defineField({
       name: "tagline",
@@ -76,18 +82,6 @@ export const productSchema = defineType({
       ],
     }),
     defineField({
-      name: "mainImage",
-      title: "Image principale (ancien champ — utiliser Galerie médias)",
-      type: "image",
-      options: { hotspot: true },
-    }),
-    defineField({
-      name: "images",
-      title: "Galerie images (ancien champ — utiliser Galerie médias)",
-      type: "array",
-      of: [{ type: "image", options: { hotspot: true } }],
-    }),
-    defineField({
       name: "description",
       title: "Description",
       type: "text",
@@ -105,7 +99,6 @@ export const productSchema = defineType({
     select: {
       title: "name",
       subtitle: "category",
-      media: "mainImage",
     },
   },
 });

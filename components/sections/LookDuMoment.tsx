@@ -70,7 +70,9 @@ export function LookDuMoment({ data }: Props) {
                 </div>
                 <div>
                   <p className="font-display text-[18px] leading-tight text-forest">{product.name}</p>
-                  <p className="font-sans text-[12px] text-muted">{product.price}€</p>
+                  {product.price !== undefined && (
+                    <p className="font-sans text-[12px] text-muted">{product.price}€</p>
+                  )}
                 </div>
               </Link>
             ))}

@@ -14,9 +14,11 @@ type AccordionItem = {
 export function ProductDetail({
   product,
   related,
+  instagramHandle = "colors.boutique",
 }: {
   product: Product;
   related: Product[];
+  instagramHandle?: string;
 }) {
   const [activeImage, setActiveImage] = useState(0);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
@@ -115,6 +117,7 @@ export function ProductDetail({
               openAccordion={openAccordion}
               setOpenAccordion={setOpenAccordion}
               accordionItems={accordionItems}
+              instagramHandle={instagramHandle}
             />
           </div>
         </div>
@@ -165,6 +168,7 @@ export function ProductDetail({
               openAccordion={openAccordion}
               setOpenAccordion={setOpenAccordion}
               accordionItems={accordionItems}
+              instagramHandle={instagramHandle}
             />
           </div>
         </div>
@@ -199,6 +203,7 @@ function ProductInfo({
   openAccordion,
   setOpenAccordion,
   accordionItems,
+  instagramHandle,
 }: {
   product: Product;
   selectedSize: string | null;
@@ -206,6 +211,7 @@ function ProductInfo({
   openAccordion: number;
   setOpenAccordion: (i: number) => void;
   accordionItems: AccordionItem[];
+  instagramHandle: string;
 }) {
   return (
     <>
@@ -222,13 +228,15 @@ function ProductInfo({
         {product.tagline}
       </p>
 
-      <div
-        className="mt-4 flex items-baseline gap-2 pb-9"
-        style={{ borderBottom: "1px solid #cdbfa3", marginBottom: 36 }}
-      >
-        <span className="font-sans text-[28px] font-normal text-forest">{product.price}€</span>
-        <span className="font-sans text-[12px] text-muted">· TVA incluse</span>
-      </div>
+      {product.price !== undefined && (
+        <div
+          className="mt-4 flex items-baseline gap-2 pb-9"
+          style={{ borderBottom: "1px solid #cdbfa3", marginBottom: 36 }}
+        >
+          <span className="font-sans text-[28px] font-normal text-forest">{product.price}€</span>
+          <span className="font-sans text-[12px] text-muted">· TVA incluse</span>
+        </div>
+      )}
 
       <div className="mb-9">
         <div className="mb-3 flex items-center justify-between">
@@ -273,12 +281,12 @@ function ProductInfo({
           d&apos;essayage.
         </p>
         <a
-          href="https://instagram.com/colors.boutique"
+          href={`https://instagram.com/${instagramHandle}`}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-4 inline-block font-sans text-[12px] font-medium uppercase tracking-[0.18em] text-forest underline hover:text-ochre-deep"
         >
-          @colors.boutique →
+          @{instagramHandle} →
         </a>
       </div>
 

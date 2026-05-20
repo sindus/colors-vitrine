@@ -12,9 +12,17 @@ type SortKey = "editorial" | "price-asc" | "price-desc" | "name-asc";
 function sortProducts(products: Product[], sort: SortKey): Product[] {
   switch (sort) {
     case "price-asc":
-      return [...products].sort((a, b) => a.price - b.price);
+      return [...products].sort((a, b) => {
+        if (a.price === undefined) return 1;
+        if (b.price === undefined) return -1;
+        return a.price - b.price;
+      });
     case "price-desc":
-      return [...products].sort((a, b) => b.price - a.price);
+      return [...products].sort((a, b) => {
+        if (a.price === undefined) return 1;
+        if (b.price === undefined) return -1;
+        return b.price - a.price;
+      });
     case "name-asc":
       return [...products].sort((a, b) => a.name.localeCompare(b.name, "fr"));
     default:
