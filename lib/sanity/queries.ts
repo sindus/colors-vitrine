@@ -9,7 +9,7 @@ const PRODUCT_FIELDS = `
   price,
   tagline,
   "colors": coalesce(colors, []),
-  sizes,
+  "sizes": coalesce(sizes, []),
   "image": coalesce(mediaItems[0].image.asset->url, mainImage.asset->url, ""),
   "images": coalesce(images[].asset->url, []),
   "media": mediaItems[]{"imageUrl": image.asset->url, "videoUrl": video.asset->url},

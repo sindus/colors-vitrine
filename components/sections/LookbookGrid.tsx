@@ -1,34 +1,8 @@
-"use client";
-
 import Link from "next/link";
-import { useState, useMemo } from "react";
 import { MosaicCard } from "@/components/ui/MosaicCard";
 import { NewsletterStrip } from "@/components/sections/NewsletterStrip";
 import { MOSAIC_PATTERN } from "@/lib/data";
 import type { Product, LookbookData } from "@/lib/types";
-
-type SortKey = "editorial" | "price-asc" | "price-desc" | "name-asc";
-
-function sortProducts(products: Product[], sort: SortKey): Product[] {
-  switch (sort) {
-    case "price-asc":
-      return [...products].sort((a, b) => {
-        if (a.price === undefined) return 1;
-        if (b.price === undefined) return -1;
-        return a.price - b.price;
-      });
-    case "price-desc":
-      return [...products].sort((a, b) => {
-        if (a.price === undefined) return 1;
-        if (b.price === undefined) return -1;
-        return b.price - a.price;
-      });
-    case "name-asc":
-      return [...products].sort((a, b) => a.name.localeCompare(b.name, "fr"));
-    default:
-      return products;
-  }
-}
 
 const DEFAULT_TAGLINE = "Une poignée de pièces, choisies une à une.";
 const DEFAULT_PARAGRAPH =
@@ -41,9 +15,6 @@ type Props = {
 };
 
 export function LookbookGrid({ products, lookbook }: Props) {
-  const [sort, setSort] = useState<SortKey>("editorial");
-  const sorted = useMemo(() => sortProducts(products, sort), [products, sort]);
-
   const tagline = lookbook?.tagline || DEFAULT_TAGLINE;
   const season = lookbook?.season || DEFAULT_SEASON;
   const paragraph = lookbook?.paragraph
@@ -95,9 +66,9 @@ export function LookbookGrid({ products, lookbook }: Props) {
           </div>
         </div>
 
-        {/* Sort bar */}
+        {/* Season bar */}
         <div
-          className="mb-6 flex flex-wrap items-center justify-between gap-3 py-[18px]"
+          className="mb-6 py-[18px]"
           style={{
             borderTop: "1px solid #cdbfa3",
             borderBottom: "1px solid #cdbfa3",
@@ -106,23 +77,10 @@ export function LookbookGrid({ products, lookbook }: Props) {
           <p className="font-sans text-[12px] uppercase tracking-[0.16em] text-muted-strong">
             {season}
           </p>
-          <label className="flex items-center gap-2 font-sans text-[12px] text-muted-strong">
-            Présentation :
-            <select
-              value={sort}
-              onChange={(e) => setSort(e.target.value as SortKey)}
-              className="bg-transparent font-sans text-[12px] text-forest focus:outline-none"
-            >
-              <option value="editorial">Éditoriale</option>
-              <option value="price-asc">Prix croissant</option>
-              <option value="price-desc">Prix décroissant</option>
-              <option value="name-asc">Nom (A-Z)</option>
-            </select>
-          </label>
         </div>
 
         {/* Mosaic grid */}
-        {sorted.length === 0 ? (
+        {products.length === 0 ? (
           <div className="mb-[80px] py-[80px] text-center">
             <p className="font-display italic text-[22px] text-muted">
               Aucune pièce pour le moment.
@@ -139,7 +97,7 @@ export function LookbookGrid({ products, lookbook }: Props) {
               gridAutoFlow: "dense",
             }}
           >
-            {sorted.map((product, i) => {
+            {products.map((product, i) => {
               const [colSpan, rowSpan] = MOSAIC_PATTERN[i] ?? [1, 1];
               return (
                 <div

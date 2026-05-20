@@ -240,6 +240,7 @@ function ProductInfo({
         </div>
       )}
 
+      {product.sizes && product.sizes.length > 0 && (
       <div className="mb-9">
         <div className="mb-3 flex items-center justify-between">
           <p className="font-sans text-[12px] font-medium uppercase tracking-[0.16em] text-forest">
@@ -267,6 +268,7 @@ function ProductInfo({
           ))}
         </div>
       </div>
+      )}
 
       <div
         className="mb-10 px-6 py-7"
