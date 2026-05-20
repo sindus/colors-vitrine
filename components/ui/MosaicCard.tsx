@@ -14,7 +14,7 @@ export function MosaicCard({ product, index }: Props) {
   return (
     <Link
       href={`/lookbook/${product.id}`}
-      className="group relative block overflow-hidden bg-sand"
+      className="group relative block h-full overflow-hidden bg-sand"
     >
       <MediaView
         imageUrl={mainMedia.imageUrl}
