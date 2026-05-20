@@ -32,7 +32,6 @@ export const productSchema = defineType({
           { title: "Accessoires", value: "Accessoires" },
         ],
       },
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "price",
