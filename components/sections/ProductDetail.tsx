@@ -45,12 +45,9 @@ export function ProductDetail({
         </ul>
       ),
     },
-    {
-      label: "Livraison & retours",
-      content:
-        product.deliveryInfo ||
-        "Livraison offerte dès 80€ d'achat sous 2 à 4 jours ouvrés. Retours gratuits sous 30 jours dans toute la France métropolitaine.",
-    },
+    ...(product.deliveryInfo
+      ? [{ label: "Livraison & retours", content: product.deliveryInfo }]
+      : []),
   ];
 
   return (
