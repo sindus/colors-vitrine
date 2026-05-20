@@ -106,9 +106,9 @@ body {
   grid-row: span 2;
 }
 
-/* Mosaic grid: 2 cols on mobile, 4 on desktop */
+/* Mosaic grid: 1 col on mobile, 4 on desktop */
 .mosaic-grid {
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
 }
 @media (min-width: 1024px) {
   .mosaic-grid {

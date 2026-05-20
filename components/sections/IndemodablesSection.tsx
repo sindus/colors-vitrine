@@ -19,7 +19,7 @@ export function IndemodablesSection({ data }: Props) {
             {title}
           </h2>
         </div>
-        <Link href="/lookbook" className="nav-link hidden font-sans text-[12px] font-medium uppercase tracking-[0.16em] text-forest lg:block">
+        <Link href="/lookbook" className="nav-link max-lg:hidden font-sans text-[12px] font-medium uppercase tracking-[0.16em] text-forest">
           Voir le lookbook →
         </Link>
       </div>

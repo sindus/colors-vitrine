@@ -47,7 +47,8 @@ export function LookDuMoment({ data }: Props) {
             {d.paragraph}
           </p>
 
-          <div className="mt-8 flex flex-wrap gap-3">
+          {/* Product thumbnails — desktop only (inside text column) */}
+          <div className="mt-8 hidden flex-wrap gap-3 lg:flex">
             {featuredProducts.filter(Boolean).map((product) => (
               <Link
                 key={product.id}
@@ -67,7 +68,7 @@ export function LookDuMoment({ data }: Props) {
             ))}
           </div>
 
-          {/* Link visible on desktop only (inside text column) */}
+          {/* Link — desktop only */}
           <div className="mt-8 hidden lg:block">
             <Link href="/lookbook" className="nav-link font-sans text-[12px] font-medium uppercase tracking-[0.16em] text-forest">
               Voir tout le lookbook →
@@ -86,7 +87,28 @@ export function LookDuMoment({ data }: Props) {
           />
         </div>
 
-        {/* Link mobile only — after media */}
+        {/* Product thumbnails — mobile only, after media */}
+        <div className="mt-6 flex flex-wrap gap-3 lg:hidden">
+          {featuredProducts.filter(Boolean).map((product) => (
+            <Link
+              key={product.id}
+              href={`/lookbook/${product.id}`}
+              className="group flex items-center gap-3 bg-cream-deep p-3 pr-5 transition-colors duration-200 hover:bg-sand"
+            >
+              <div className="relative shrink-0 overflow-hidden bg-sand" style={{ width: 48, height: 60 }}>
+                <Image src={product.image} alt={product.name} fill sizes="48px" className="object-cover" />
+              </div>
+              <div>
+                <p className="font-display text-[18px] leading-tight text-forest">{product.name}</p>
+                {product.price != null && (
+                  <p className="font-sans text-[12px] text-muted">{product.price}€</p>
+                )}
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        {/* Link — mobile only, after thumbnails */}
         <div className="mt-6 lg:hidden">
           <Link href="/lookbook" className="nav-link font-sans text-[12px] font-medium uppercase tracking-[0.16em] text-forest">
             Voir tout le lookbook →
