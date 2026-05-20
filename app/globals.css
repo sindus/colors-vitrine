@@ -106,9 +106,14 @@ body {
   grid-row: span 2;
 }
 
-/* Mosaic grid: 1 col on mobile, 4 on desktop */
+/* Mosaic grid: 1 col portrait, 2 cols landscape, 4 cols desktop */
 .mosaic-grid {
   grid-template-columns: repeat(1, 1fr);
+}
+@media (max-width: 1023px) and (orientation: landscape) {
+  .mosaic-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 @media (min-width: 1024px) {
   .mosaic-grid {
