@@ -17,13 +17,16 @@ export default async function ProductPage({ params }: Props) {
 
   if (!product) notFound();
 
-  const related = await getRelatedProducts(product.category, slug);
+  const related = product.relatedProducts?.length
+    ? product.relatedProducts
+    : await getRelatedProducts(product.category, slug);
 
   return (
     <ProductDetail
       product={product}
       related={related}
       instagramHandle={settings?.instagramHandle}
+      reservationBlock={settings?.reservationBlock}
     />
   );
 }

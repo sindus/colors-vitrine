@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { MediaView } from "@/components/ui/MediaView";
 import { ProductCard } from "@/components/ui/ProductCard";
-import type { Product, MediaItem } from "@/lib/types";
+import type { Product, MediaItem, SiteSettings } from "@/lib/types";
 
 type AccordionItem = {
   label: string;
@@ -15,10 +15,12 @@ export function ProductDetail({
   product,
   related,
   instagramHandle = "colors.boutique",
+  reservationBlock,
 }: {
   product: Product;
   related: Product[];
   instagramHandle?: string;
+  reservationBlock?: SiteSettings["reservationBlock"];
 }) {
   const [activeImage, setActiveImage] = useState(0);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
@@ -46,6 +48,7 @@ export function ProductDetail({
     {
       label: "Livraison & retours",
       content:
+        product.deliveryInfo ||
         "Livraison offerte dès 80€ d'achat sous 2 à 4 jours ouvrés. Retours gratuits sous 30 jours dans toute la France métropolitaine.",
     },
   ];
@@ -118,6 +121,7 @@ export function ProductDetail({
               setOpenAccordion={setOpenAccordion}
               accordionItems={accordionItems}
               instagramHandle={instagramHandle}
+              reservationBlock={reservationBlock}
             />
           </div>
         </div>
@@ -169,6 +173,7 @@ export function ProductDetail({
               setOpenAccordion={setOpenAccordion}
               accordionItems={accordionItems}
               instagramHandle={instagramHandle}
+              reservationBlock={reservationBlock}
             />
           </div>
         </div>
@@ -204,6 +209,7 @@ function ProductInfo({
   setOpenAccordion,
   accordionItems,
   instagramHandle,
+  reservationBlock,
 }: {
   product: Product;
   selectedSize: string | null;
@@ -212,6 +218,7 @@ function ProductInfo({
   setOpenAccordion: (i: number) => void;
   accordionItems: AccordionItem[];
   instagramHandle: string;
+  reservationBlock?: SiteSettings["reservationBlock"];
 }) {
   return (
     <>
@@ -275,14 +282,14 @@ function ProductInfo({
         style={{ backgroundColor: "#ebe5d7", borderLeft: "2px solid #e3b76b" }}
       >
         <p className="font-sans text-[11px] font-medium uppercase tracking-[0.16em] text-ochre-deep">
-          Pour réserver cette pièce
+          {reservationBlock?.overline ?? "Pour réserver cette pièce"}
         </p>
         <p className="mt-2 font-display italic text-[22px] leading-tight text-forest">
-          Envoyez-nous un message privé sur Instagram.
+          {reservationBlock?.title ?? "Envoyez-nous un message privé sur Instagram."}
         </p>
         <p className="mt-3 font-sans text-[13px] font-light leading-[1.6] text-muted-strong">
-          On vous répond dans la journée pour la mettre de côté en boutique et fixer un créneau
-          d&apos;essayage.
+          {reservationBlock?.body ??
+            "On vous répond dans la journée pour la mettre de côté en boutique et fixer un créneau d'essayage."}
         </p>
         <a
           href={`https://instagram.com/${instagramHandle}`}

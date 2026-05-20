@@ -14,7 +14,8 @@ const PRODUCT_FIELDS = `
   "images": coalesce(images[].asset->url, []),
   "media": mediaItems[]{"imageUrl": image.asset->url, "videoUrl": video.asset->url},
   description,
-  "details": coalesce(details, [])
+  "details": coalesce(details, []),
+  deliveryInfo
 `;
 
 function mergeWithStatic(sanityProducts: Partial<Product>[]): Product[] {
@@ -48,11 +49,20 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
   }
   try {
     const result = await sanityClient.fetch(
-      `*[_type == "product" && slug.current == $slug][0] { ${PRODUCT_FIELDS} }`,
+      `*[_type == "product" && slug.current == $slug][0] {
+        ${PRODUCT_FIELDS},
+        "relatedProducts": relatedProducts[]-> { ${PRODUCT_FIELDS} }
+      }`,
       { slug }
     );
     if (!result) return PRODUCTS.find((p) => p.id === slug) ?? null;
-    return mergeWithStatic([result])[0];
+    const relatedRaw = result.relatedProducts as Partial<Product>[] | undefined;
+    delete result.relatedProducts;
+    const product = mergeWithStatic([result])[0];
+    if (relatedRaw?.length) {
+      product.relatedProducts = mergeWithStatic(relatedRaw);
+    }
+    return product;
   } catch {
     return PRODUCTS.find((p) => p.id === slug) ?? null;
   }
@@ -184,6 +194,7 @@ export async function getSiteSettings(): Promise<SiteSettings | null> {
         announcementMessages,
         address,
         instagramHandle,
+        reservationBlock { overline, title, body },
         mentionsLegales
       }`
     );

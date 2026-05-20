@@ -16,6 +16,8 @@ export type Product = {
   description: string;
   details: string[];
   media?: MediaItem[];
+  deliveryInfo?: string;
+  relatedProducts?: Product[];
 };
 
 export type HeroData = {
@@ -96,5 +98,10 @@ export type SiteSettings = {
   announcementMessages?: string[];
   address?: string;
   instagramHandle?: string;
+  reservationBlock?: {
+    overline?: string;
+    title?: string;
+    body?: string;
+  };
   mentionsLegales?: string;
 };

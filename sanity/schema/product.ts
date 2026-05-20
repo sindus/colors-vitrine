@@ -85,6 +85,21 @@ export const productSchema = defineType({
       type: "array",
       of: [{ type: "string" }],
     }),
+    defineField({
+      name: "deliveryInfo",
+      title: "Livraison & retours (personnalisé)",
+      description: "Laissez vide pour afficher le texte par défaut.",
+      type: "text",
+      rows: 3,
+    }),
+    defineField({
+      name: "relatedProducts",
+      title: "Produits liés (« Vous aimerez aussi »)",
+      description: "Sélectionnez jusqu'à 4 produits. Laissez vide pour une sélection automatique par catégorie.",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "product" }] }],
+      validation: (Rule) => Rule.max(4),
+    }),
   ],
   preview: {
     select: {

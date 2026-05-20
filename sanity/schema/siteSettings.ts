@@ -23,6 +23,16 @@ export const siteSettingsSchema = defineType({
       type: "string",
     }),
     defineField({
+      name: "reservationBlock",
+      title: "Bloc « Réserver une pièce » (fiche produit)",
+      type: "object",
+      fields: [
+        { name: "overline", title: "Surtitre", type: "string" },
+        { name: "title", title: "Titre (italic)", type: "string" },
+        { name: "body", title: "Corps du texte", type: "text", rows: 3 },
+      ],
+    }),
+    defineField({
       name: "mentionsLegales",
       title: "Mentions légales",
       type: "text",
