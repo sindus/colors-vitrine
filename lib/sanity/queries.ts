@@ -5,7 +5,7 @@ import { PRODUCTS } from "../data";
 const PRODUCT_FIELDS = `
   "id": slug.current,
   name,
-  category,
+  "category": category->name,
   price,
   tagline,
   "colors": coalesce(colors, []),
@@ -59,9 +59,10 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
 }
 
 export async function getRelatedProducts(
-  category: string,
+  category: string | undefined,
   excludeSlug: string
 ): Promise<Product[]> {
+  if (!category) return [];
   if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
     return PRODUCTS.filter(
       (p) => p.category === category && p.id !== excludeSlug
@@ -69,7 +70,7 @@ export async function getRelatedProducts(
   }
   try {
     const results = await sanityClient.fetch(
-      `*[_type == "product" && category == $category && slug.current != $excludeSlug][0...4] { ${PRODUCT_FIELDS} }`,
+      `*[_type == "product" && category->name == $category && slug.current != $excludeSlug][0...4] { ${PRODUCT_FIELDS} }`,
       { category, excludeSlug }
     );
     return mergeWithStatic(results);

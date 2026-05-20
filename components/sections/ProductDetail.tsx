@@ -215,9 +215,11 @@ function ProductInfo({
 }) {
   return (
     <>
-      <p className="font-sans text-[11px] font-medium uppercase tracking-[0.16em] text-ochre-deep">
-        {product.category.toUpperCase()}
-      </p>
+      {product.category && (
+        <p className="font-sans text-[11px] font-medium uppercase tracking-[0.16em] text-ochre-deep">
+          {product.category.toUpperCase()}
+        </p>
+      )}
       <h1
         className="mt-2 font-display font-normal text-forest"
         style={{ fontSize: "clamp(36px, 3vw, 56px)", lineHeight: 1, letterSpacing: "-0.01em" }}

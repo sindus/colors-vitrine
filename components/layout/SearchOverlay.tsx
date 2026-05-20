@@ -34,7 +34,7 @@ export function SearchOverlay({ onClose }: Props) {
       ? PRODUCTS.filter(
           (p) =>
             p.name.toLowerCase().includes(query.toLowerCase()) ||
-            p.category.toLowerCase().includes(query.toLowerCase()) ||
+            p.category?.toLowerCase().includes(query.toLowerCase()) ||
             p.tagline.toLowerCase().includes(query.toLowerCase())
         ).slice(0, 6)
       : [];

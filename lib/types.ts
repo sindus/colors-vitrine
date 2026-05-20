@@ -6,7 +6,7 @@ export type MediaItem = {
 export type Product = {
   id: string;
   name: string;
-  category: "Robes" | "Tops" | "Pantalons" | "T-shirts" | "Accessoires";
+  category?: string;
   price?: number;
   tagline: string;
   colors: string[];

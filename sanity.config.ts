@@ -1,6 +1,7 @@
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { productSchema } from "./sanity/schema/product";
+import { categorySchema } from "./sanity/schema/category";
 import { homepageSchema } from "./sanity/schema/homepage";
 import { siteSettingsSchema } from "./sanity/schema/siteSettings";
 
@@ -33,11 +34,12 @@ export default defineConfig({
                   .documentId("siteSettings")
               ),
             S.divider(),
+            S.documentTypeListItem("category").title("Catégories"),
             S.documentTypeListItem("product").title("Produits"),
           ]),
     }),
   ],
   schema: {
-    types: [productSchema, homepageSchema, siteSettingsSchema],
+    types: [productSchema, categorySchema, homepageSchema, siteSettingsSchema],
   },
 });

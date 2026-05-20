@@ -22,16 +22,8 @@ export const productSchema = defineType({
     defineField({
       name: "category",
       title: "Catégorie",
-      type: "string",
-      options: {
-        list: [
-          { title: "Robes", value: "Robes" },
-          { title: "Tops", value: "Tops" },
-          { title: "Pantalons", value: "Pantalons" },
-          { title: "T-shirts", value: "T-shirts" },
-          { title: "Accessoires", value: "Accessoires" },
-        ],
-      },
+      type: "reference",
+      to: [{ type: "category" }],
     }),
     defineField({
       name: "price",
