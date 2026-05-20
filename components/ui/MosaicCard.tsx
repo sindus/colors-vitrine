@@ -44,7 +44,7 @@ export function MosaicCard({ product, index }: Props) {
               {product.tagline}
             </p>
           </div>
-          {product.price !== undefined && (
+          {product.price != null && (
             <p
               className="shrink-0 border-l pl-3 font-sans text-[13px] font-medium text-cream"
               style={{ borderColor: "rgba(243,239,230,0.4)" }}

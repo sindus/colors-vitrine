@@ -34,7 +34,7 @@ export function ProductCard({ product }: Props) {
           <p className="font-display text-[20px] leading-tight text-forest">{product.name}</p>
           <p className="mt-0.5 font-sans text-[12px] text-muted">{product.tagline}</p>
         </div>
-        {product.price !== undefined && (
+        {product.price != null && (
           <p className="shrink-0 font-sans text-[14px] font-medium text-forest">{product.price}€</p>
         )}
       </div>

@@ -230,7 +230,7 @@ function ProductInfo({
         {product.tagline}
       </p>
 
-      {product.price !== undefined && (
+      {product.price != null && (
         <div
           className="mt-4 flex items-baseline gap-2 pb-9"
           style={{ borderBottom: "1px solid #cdbfa3", marginBottom: 36 }}
