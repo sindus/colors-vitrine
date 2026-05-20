@@ -106,11 +106,18 @@ body {
   grid-row: span 2;
 }
 
-/* Mosaic grid: 1 col portrait, 2 cols landscape, 4 cols desktop */
+/* Mosaic grid: 1 col (mobile portrait), 2 cols (tablet + mobile landscape), 4 cols (desktop) */
 .mosaic-grid {
   grid-template-columns: repeat(1, 1fr);
 }
-@media (max-width: 1023px) and (orientation: landscape) {
+/* Phones in landscape (< 768px wide) */
+@media (max-width: 767px) and (orientation: landscape) {
+  .mosaic-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+/* Tablets (768px–1023px, portrait and landscape) */
+@media (min-width: 768px) and (max-width: 1023px) {
   .mosaic-grid {
     grid-template-columns: repeat(2, 1fr);
   }
