@@ -88,10 +88,9 @@ export function LookbookGrid({ products, lookbook }: Props) {
           </div>
         ) : (
           <div
-            className="mb-[80px]"
+            className="mosaic-grid mb-[80px]"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
               gridAutoRows: "240px",
               gap: "24px",
               gridAutoFlow: "dense",

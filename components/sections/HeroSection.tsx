@@ -54,7 +54,7 @@ export function HeroSection({ data }: Props) {
           {d.paragraph}
         </p>
 
-        <div className="mt-10">
+        <div className="mt-10 hidden lg:block">
           <Button href="/lookbook" size="lg">Voir le lookbook</Button>
         </div>
       </div>
@@ -76,6 +76,11 @@ export function HeroSection({ data }: Props) {
             <p className="mt-1 font-sans text-[11px] text-cream opacity-85">{d.captionProducts}</p>
           </div>
         </div>
+      </div>
+
+      {/* Button mobile only — after the media */}
+      <div className="px-[22px] pb-12 pt-6 lg:hidden">
+        <Button href="/lookbook" size="lg">Voir le lookbook</Button>
       </div>
     </section>
   );

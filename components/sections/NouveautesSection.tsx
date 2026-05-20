@@ -19,7 +19,7 @@ export function NouveautesSection({ data }: Props) {
             {title}
           </h2>
         </div>
-        <Link href="/lookbook" className="nav-link font-sans text-[12px] font-medium uppercase tracking-[0.16em] text-forest">
+        <Link href="/lookbook" className="nav-link hidden font-sans text-[12px] font-medium uppercase tracking-[0.16em] text-forest lg:block">
           Voir le lookbook →
         </Link>
       </div>
@@ -27,6 +27,11 @@ export function NouveautesSection({ data }: Props) {
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
+      </div>
+      <div className="mt-8 lg:hidden">
+        <Link href="/lookbook" className="nav-link font-sans text-[12px] font-medium uppercase tracking-[0.16em] text-forest">
+          Voir le lookbook →
+        </Link>
       </div>
     </section>
   );

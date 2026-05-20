@@ -30,19 +30,8 @@ export function LookDuMoment({ data }: Props) {
   return (
     <section className="mx-auto w-full max-w-[1440px] px-[22px] py-[80px] lg:px-10 lg:py-[120px]">
       <div className="contents lg:grid lg:items-center lg:gap-16" style={{ gridTemplateColumns: "7fr 5fr" }}>
-        {/* Image or video */}
-        <div className="relative mb-8 overflow-hidden bg-sand lg:mb-0" style={{ aspectRatio: "5/6" }}>
-          <MediaView
-            imageUrl={d.videoUrl ? null : d.imageUrl}
-            videoUrl={d.videoUrl}
-            alt="Look du moment"
-            sizes="(max-width: 1024px) 100vw, 58vw"
-            className="object-cover"
-          />
-        </div>
-
-        {/* Text */}
-        <div>
+        {/* Text — first in DOM so it appears before media on mobile */}
+        <div className="mb-8 lg:col-start-2 lg:mb-0">
           <p className="font-sans text-[11px] font-medium uppercase tracking-[0.24em] text-ochre-deep">
             {d.overline}
           </p>
@@ -78,11 +67,30 @@ export function LookDuMoment({ data }: Props) {
             ))}
           </div>
 
-          <div className="mt-8">
+          {/* Link visible on desktop only (inside text column) */}
+          <div className="mt-8 hidden lg:block">
             <Link href="/lookbook" className="nav-link font-sans text-[12px] font-medium uppercase tracking-[0.16em] text-forest">
               Voir tout le lookbook →
             </Link>
           </div>
+        </div>
+
+        {/* Image or video — second in DOM so it appears after text on mobile */}
+        <div className="relative overflow-hidden bg-sand lg:col-start-1" style={{ aspectRatio: "5/6" }}>
+          <MediaView
+            imageUrl={d.videoUrl ? null : d.imageUrl}
+            videoUrl={d.videoUrl}
+            alt="Look du moment"
+            sizes="(max-width: 1024px) 100vw, 58vw"
+            className="object-cover"
+          />
+        </div>
+
+        {/* Link mobile only — after media */}
+        <div className="mt-6 lg:hidden">
+          <Link href="/lookbook" className="nav-link font-sans text-[12px] font-medium uppercase tracking-[0.16em] text-forest">
+            Voir tout le lookbook →
+          </Link>
         </div>
       </div>
     </section>
