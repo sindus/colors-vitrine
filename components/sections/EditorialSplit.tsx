@@ -20,7 +20,7 @@ export function EditorialSplit({ data }: Props) {
   return (
     <section className="grid grid-cols-1 lg:grid-cols-2" style={{ minHeight: 640 }}>
       {/* Text — first in DOM so it appears before media on mobile */}
-      <div className="flex flex-col justify-center px-[22px] py-16 lg:col-start-2 lg:px-20 lg:py-[100px]" style={{ backgroundColor: "#ebe5d7" }}>
+      <div className="flex flex-col justify-center px-[22px] py-16 lg:col-start-2 lg:row-start-1 lg:px-20 lg:py-[100px]" style={{ backgroundColor: "#ebe5d7" }}>
         <p className="font-sans text-[11px] font-medium uppercase tracking-[0.24em] text-ochre-deep">{d.overline}</p>
         <h2
           className="mt-4 font-display font-normal text-forest"
@@ -43,7 +43,7 @@ export function EditorialSplit({ data }: Props) {
       </div>
 
       {/* Media — second in DOM so it appears after text on mobile */}
-      <div className="relative min-h-[50vw] lg:col-start-1 lg:min-h-0" style={{ backgroundColor: "#dfd3bd" }}>
+      <div className="relative min-h-[50vw] lg:col-start-1 lg:row-start-1 lg:min-h-0" style={{ backgroundColor: "#dfd3bd" }}>
         <MediaView
           imageUrl={d.videoUrl ? null : d.imageUrl}
           videoUrl={d.videoUrl}

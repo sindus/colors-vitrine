@@ -31,7 +31,7 @@ export function LookDuMoment({ data }: Props) {
     <section className="mx-auto w-full max-w-[1440px] px-[22px] py-[80px] lg:px-10 lg:py-[120px]">
       <div className="contents lg:grid lg:items-center lg:gap-16" style={{ gridTemplateColumns: "7fr 5fr" }}>
         {/* Text — first in DOM so it appears before media on mobile */}
-        <div className="mb-8 lg:col-start-2 lg:mb-0">
+        <div className="mb-8 lg:col-start-2 lg:row-start-1 lg:mb-0">
           <p className="font-sans text-[11px] font-medium uppercase tracking-[0.24em] text-ochre-deep">
             {d.overline}
           </p>
@@ -77,7 +77,7 @@ export function LookDuMoment({ data }: Props) {
         </div>
 
         {/* Image or video — second in DOM so it appears after text on mobile */}
-        <div className="relative overflow-hidden bg-sand lg:col-start-1" style={{ aspectRatio: "5/6" }}>
+        <div className="relative overflow-hidden bg-sand lg:col-start-1 lg:row-start-1" style={{ aspectRatio: "5/6" }}>
           <MediaView
             imageUrl={d.videoUrl ? null : d.imageUrl}
             videoUrl={d.videoUrl}
